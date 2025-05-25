@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sons of Anarchy Quiz</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+      body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #1b1b1b, #8b0000);
+        color: #fff;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .screen {
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 15px;
+        padding: 30px 30px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        width: 600px;
+      }
+
+      h1 {
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+      }
+
+      button {
+        background: #c0392b;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        margin: 10px 15px;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background: #a93226;
+      }
+
+      .quiz-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 300px;
+        margin: 0 auto 20px auto;
+      }
+
+      .quiz-list button {
+        background: #922b21;
+      }
+
+      .quiz-list button:hover {
+        background: #c0392b;
+      }
+
+      .quiz-list-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+      }
+
+      .quiz-list,
+      .score-list {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 20px 25px;
+        max-width: 500px;
+      }
+
+      .score-list h2 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        text-align: center;
+      }
+
+      .score-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .score-list li {
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      #back-to-start {
+        margin-top: 0;
+      }
+
+      .quiz-container {
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 15px;
+        padding: 30px 40px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        display: none;
+        text-align: left;
+      }
+
+      .quiz-container h1 {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .question {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+      }
+
+      .options {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+      }
+
+      .options li {
+        background: #2c3e50;
+        margin-bottom: 15px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .options li:hover {
+        background: #922b21;
+      }
+
+      .options li.selected {
+        border-color: #f1c40f;
+        background: #c0392b;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .feedback {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        min-height: 24px;
+        font-weight: 600;
+      }
+
+      .btn-next,
+      .btn-restart,
+      .btn-stop-quiz {
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: none;
+        margin: 0 auto;
+        transition: background 0.3s ease;
+        border: none;
+      }
+
+      .btn-next,
+      .btn-restart {
+        background: #c0392b;
+        color: #fff;
+      }
+
+      .btn-next:hover,
+      .btn-restart:hover {
+        background: #a93226;
+      }
+
+      .btn-stop-quiz {
+        background: #7b241c;
+        color: #fff;
+        margin-left: 10px;
+        display: inline-block;
+      }
+
+      .btn-stop-quiz:hover {
+        background: #641e16;
+      }
+
+      .btn-restart,
+      .btn-stop-quiz {
+        display: inline-block;
+      }
+
+      .btn-container {
+        text-align: center;
+      }
+
+      .score {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Start Screen -->
+      <div class="start-screen screen">
+        <h1>Welcome to the Quiz Portal</h1>
+        <button id="play-btn">Play Quiz</button>
+        <button id="stop-btn">Stop Quizzing</button>
+        <h4>Made By Preader (Pr0Gmer243 on Github)</h4>
+      </div>
+
+      <!-- Quiz List Screen -->
+      <div class="quiz-list-screen screen" style="display: none">
+        <h1>Select a Quiz</h1>
+        <div class="quiz-list-wrapper">
+          <div class="quiz-list">
+            <button data-quiz="sons-of-anarchy-s1">
+              Sons of Anarchy - Season 1
+            </button>
+            <button data-quiz="sons-of-anarchy-s2">
+              Sons of Anarchy - Season 2
+            </button>
+            <button data-quiz="sons-of-anarchy-s3">
+              Sons of Anarchy - Season 3
+            </button>
+            <button data-quiz="sons-of-anarchy-s4">
+              Sons of Anarchy - Season 4
+            </button>
+            <button data-quiz="sons-of-anarchy-s5">
+              Sons of Anarchy - Season 5
+            </button>
+            <button data-quiz="sons-of-anarchy-s6">
+              Sons of Anarchy - Season 6
+            </button>
+            <button data-quiz="sons-of-anarchy-s7">
+              Sons of Anarchy - Season 7
+            </button>
+          </div>
+
+          <div class="score-list">
+            <h2>Recent Scores</h2>
+            <ul id="score-list-ul">
+              <!-- Scores populated here -->
+            </ul>
+          </div>
+        </div>
+        <button id="back-to-start">Back to Start</button>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="quiz-container">
+        <h1>Quiz</h1>
+        <div class="question"></div>
+        <ul class="options"></ul>
+        <div class="feedback"></div>
+        <div class="btn-container">
+          <button class="btn-next">Next Question</button>
+          <button class="btn-restart">Restart Quiz</button>
+          <button class="btn-stop-quiz">Quiz Portal</button>
+        </div>
+        <div class="score"></div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        const quizzes = {
+          "sons-of-anarchy-s1": {
+            title: "Sons of Anarchy - Season 1 Quiz",
+            questions: [
+              {
+                question: "Who is the president of SAMCRO in Season 1?",
+                options: [
+                  "Clay Morrow",
+                  "Jax Teller",
+                  "Tig Trager",
+                  "Opie Winston",
+                ],
+                answer: 0,
+              },
+              {
+                question: "What is the name of Jax's son?",
+                options: ["Tommy", "Abel", "Lucas", "Ethan"],
+                answer: 1,
+              },
+              {
+                question: "Which town is SAMCRO based in?",
+                options: ["Charming", "Oakland", "Stockton", "San Bernardino"],
+                answer: 0,
+              },
+              {
+                question: "What is the name of the club's gun supplier?",
+                options: ["One-Niners", "Mayans", "Irish Kings", "True IRA"],
+                answer: 3,
+              },
+              {
+                question: "Who is Jax's ex-wife?",
+                options: ["Tara", "Gemma", "Wendy", "Lyla"],
+                answer: 2,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s2": {
+            title: "Sons of Anarchy - Season 2 Quiz",
+            questions: [
+              {
+                question:
+                  "Which white supremacist group becomes the main antagonist?",
+                options: ["True IRA", "LOAN", "The Niners", "The Mayans"],
+                answer: 1,
+              },
+              {
+                question: "Who is Ethan Zobelle?",
+                options: [
+                  "A Charming cop",
+                  "Club member",
+                  "Head of LOAN",
+                  "SAMCRO ally",
+                ],
+                answer: 2,
+              },
+              {
+                question: "What happens to Gemma in Season 2?",
+                options: [
+                  "She is arrested",
+                  "She is assaulted",
+                  "She leaves town",
+                  "She kills Zobelle",
+                ],
+                answer: 1,
+              },
+              {
+                question:
+                  "What position does Jax hold in SAMCRO during this season?",
+                options: ["President", "Prospect", "VP", "Sergeant-at-Arms"],
+                answer: 2,
+              },
+              {
+                question: "Who is Opie’s wife that died in Season 1?",
+                options: ["Donna", "Tara", "Lyla", "Gemma"],
+                answer: 0,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s3": {
+            title: "Sons of Anarchy - Season 3 Quiz",
+            questions: [
+              {
+                question: "Where is Abel kidnapped to?",
+                options: ["Ireland", "Mexico", "Canada", "Germany"],
+                answer: 0,
+              },
+              {
+                question: "What is the name of the Irish chapter of SAMCRO?",
+                options: ["SAMBEL", "SAMDUB", "SAMIRE", "SAMIreland"],
+                answer: 0,
+              },
+              {
+                question: "Who is Father Kellan Ashby?",
+                options: [
+                  "Club member",
+                  "Irish priest",
+                  "Police informant",
+                  "Arms dealer",
+                ],
+                answer: 1,
+              },
+              {
+                question: "Who betrays Jax in Ireland?",
+                options: ["Trinity", "Maureen", "Jimmy O.", "Chibs"],
+                answer: 2,
+              },
+              {
+                question: "What personal revelation does Jax learn in Ireland?",
+                options: [
+                  "He's not Abel's father",
+                  "John Teller was murdered",
+                  "He has a sister",
+                  "Gemma is dying",
+                ],
+                answer: 2,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s4": {
+            title: "Sons of Anarchy - Season 4 Quiz",
+            questions: [
+              {
+                question: "Who is the new antagonist in Season 4?",
+                options: [
+                  "Eli Roosevelt",
+                  "Pope",
+                  "Galindo Cartel",
+                  "Lincoln Potter",
+                ],
+                answer: 3,
+              },
+              {
+                question: "What type of deal does SAMCRO make this season?",
+                options: [
+                  "Drugs",
+                  "Guns",
+                  "Human trafficking",
+                  "Arms with CIA",
+                ],
+                answer: 0,
+              },
+              {
+                question: "What major role does Tara take on?",
+                options: [
+                  "Lawyer",
+                  "Club secretary",
+                  "Club doctor",
+                  "President",
+                ],
+                answer: 2,
+              },
+              {
+                question: "Who is arrested by Potter?",
+                options: ["Tig", "Juice", "Bobby", "Jax"],
+                answer: 1,
+              },
+              {
+                question: "What secret does Clay try to keep hidden?",
+                options: [
+                  "He killed Piney",
+                  "He has cancer",
+                  "He's working for the FBI",
+                  "He's Jax’s father",
+                ],
+                answer: 0,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s5": {
+            title: "Sons of Anarchy - Season 5 Quiz",
+            questions: [
+              {
+                question: "Who becomes president of SAMCRO in Season 5?",
+                options: ["Clay", "Jax", "Bobby", "Tig"],
+                answer: 1,
+              },
+              {
+                question: "Who is Damon Pope?",
+                options: [
+                  "Mayans leader",
+                  "New Sheriff",
+                  "Crime boss",
+                  "CIA agent",
+                ],
+                answer: 2,
+              },
+              {
+                question: "Whose daughter does Tig accidentally kill?",
+                options: ["Eli's", "Pope's", "Clay's", "Nero's"],
+                answer: 1,
+              },
+              {
+                question: "Which member is burned alive by Pope?",
+                options: ["Juice", "Opie", "Filthy Phil", "Laroy"],
+                answer: 2,
+              },
+              {
+                question: "What does Jax offer Nero?",
+                options: [
+                  "A seat in SAMCRO",
+                  "Protection for his son",
+                  "A brothel partnership",
+                  "A chance to run drugs",
+                ],
+                answer: 2,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s6": {
+            title: "Sons of Anarchy - Season 6 Quiz",
+            questions: [
+              {
+                question: "Who kills Tara?",
+                options: ["Jax", "Gemma", "Juice", "Clay"],
+                answer: 1,
+              },
+              {
+                question: "What is the name of Tara and Jax's second child?",
+                options: ["Abel", "Thomas", "Lucas", "Jax Jr."],
+                answer: 1,
+              },
+              {
+                question: "What does Lee Toric want?",
+                options: [
+                  "Tara to testify",
+                  "Clay to flip on Jax",
+                  "Juice to confess",
+                  "SAMCRO to disband",
+                ],
+                answer: 0,
+              },
+              {
+                question: "What major character dies in prison?",
+                options: ["Clay", "Tig", "Juice", "Chibs"],
+                answer: 0,
+              },
+              {
+                question: "What causes the school shooting scandal?",
+                options: [
+                  "SAMCRO's guns were used",
+                  "Clay’s orders",
+                  "Nero’s gang involvement",
+                  "Mayans setup",
+                ],
+                answer: 0,
+              },
+            ],
+          },
+
+          "sons-of-anarchy-s7": {
+            title: "Sons of Anarchy - Season 7 Quiz",
+            questions: [
+              {
+                question: "Who does Jax kill in revenge for Tara’s death?",
+                options: ["Juice", "Gemma", "Unser", "Marks"],
+                answer: 1,
+              },
+              {
+                question: "What happens to Juice?",
+                options: [
+                  "He runs away",
+                  "He becomes president",
+                  "He is killed in prison",
+                  "He kills Jax",
+                ],
+                answer: 2,
+              },
+              {
+                question: "What does Jax confess to the club?",
+                options: [
+                  "He killed Tara",
+                  "He knows the truth about Clay",
+                  "He knows Gemma killed Tara",
+                  "He betrayed SAMCRO",
+                ],
+                answer: 2,
+              },
+              {
+                question: "What does Jax ask the club to do before he dies?",
+                options: [
+                  "Kill him",
+                  "Take care of his sons",
+                  "Burn the clubhouse",
+                  "Kill Nero",
+                ],
+                answer: 0,
+              },
+              {
+                question: "How does the series end?",
+                options: [
+                  "Jax retires",
+                  "Jax goes to jail",
+                  "Jax commits suicide",
+                  "Jax leaves Charming",
+                ],
+                answer: 2,
+              },
+            ],
+          },
+        };
+
+        // State variables
+        let currentQuizKey = null;
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+
+        // Cached jQuery selectors
+        const $startScreen = $(".start-screen");
+        const $quizListScreen = $(".quiz-list-screen");
+        const $quizContainer = $(".quiz-container");
+        const $playBtn = $("#play-btn");
+        const $stopBtn = $("#stop-btn");
+        const $backToStartBtn = $("#back-to-start");
+        const $scoreListUl = $("#score-list-ul");
+
+        const $questionText = $(".question");
+        const $optionsList = $(".options");
+        const $feedback = $(".feedback");
+        const $btnNext = $(".btn-next");
+        const $btnRestart = $(".btn-restart");
+        const $btnStopQuiz = $(".btn-stop-quiz");
+        const $scoreDisplay = $(".score");
+
+        // Helpers
+        function loadScores() {
+          // load score data from localStorage (if any)
+          const stored = localStorage.getItem("quizScores");
+          if (stored) {
+            try {
+              return JSON.parse(stored);
+            } catch {
+              return {};
+            }
+          }
+          return {};
+        }
+
+        function saveScores(scores) {
+          localStorage.setItem("quizScores", JSON.stringify(scores));
+        }
+
+        function updateScoreList() {
+          const scores = loadScores();
+          $scoreListUl.empty();
+
+          Object.keys(quizzes).forEach((quizKey) => {
+            const quizName = quizzes[quizKey].title.replace(" Quiz", "");
+            const score = scores[quizKey];
+
+            let scoreText = "N/A";
+            if (score !== undefined && score !== null) {
+              scoreText = `${score} / 5`;
+            }
+
+            const li = $("<li>").text(`${quizName}: ${scoreText}`);
+            $scoreListUl.append(li);
+          });
+        }
+
+        function showScreen(screen) {
+          $startScreen.hide();
+          $quizListScreen.hide();
+          $quizContainer.hide();
+
+          screen.show();
+        }
+
+        // Quiz logic
+
+        function startQuiz(quizKey) {
+          currentQuizKey = quizKey;
+          currentQuestionIndex = 0;
+          correctAnswersCount = 0;
+          $btnNext.hide();
+          $btnRestart.hide();
+          $btnStopQuiz.hide();
+          $feedback.text("");
+          $scoreDisplay.text(
+            `Score: ${correctAnswersCount} / ${quizzes[currentQuizKey].questions.length}`
+          );
+          showScreen($quizContainer);
+          loadQuestion();
+        }
+
+        function loadQuestion() {
+          const quiz = quizzes[currentQuizKey];
+          const q = quiz.questions[currentQuestionIndex];
+          $questionText.text(q.question);
+          $optionsList.empty();
+          $feedback.text("");
+          $btnNext.hide();
+          $btnRestart.hide();
+
+          q.options.forEach((opt, i) => {
+            const $li = $("<li>").text(opt).data("index", i);
+            $optionsList.append($li);
+          });
+        }
+
+        function updateScoreDisplay() {
+          $scoreDisplay.text(
+            `Score: ${correctAnswersCount} / ${quizzes[currentQuizKey].questions.length}`
+          );
+        }
+
+        // Event Listeners
+
+        // Start Play button - show quiz list screen
+        $playBtn.on("click", () => {
+          updateScoreList();
+          showScreen($quizListScreen);
+        });
+
+        // Stop Quizzing button
+        $stopBtn.on("click", () => {
+          alert("Thank you for using the Quiz Portal! Goodbye!");
+          // Could add more behavior here if needed.
+        });
+
+        // Back to Start button
+        $backToStartBtn.on("click", () => {
+          showScreen($startScreen);
+        });
+
+        // Clicking on quiz list buttons
+        $(".quiz-list button").on("click", function () {
+          const quizKey = $(this).data("quiz");
+          startQuiz(quizKey);
+        });
+
+        // Clicking an option in quiz
+        $optionsList.on("click", "li", function () {
+          // Ignore if already answered
+          if ($btnNext.is(":visible")) return;
+
+          const selectedIndex = $(this).data("index");
+          const quiz = quizzes[currentQuizKey];
+          const question = quiz.questions[currentQuestionIndex];
+
+          // Highlight selection
+          $optionsList.children().removeClass("selected");
+          $(this).addClass("selected");
+
+          if (selectedIndex === question.answer) {
+            $feedback.text("Correct! 🎉");
+            correctAnswersCount++;
+          } else {
+            $feedback.text(
+              `Wrong! Correct answer: ${question.options[question.answer]}`
+            );
+          }
+
+          updateScoreDisplay();
+          $btnNext.show();
+        });
+
+        // Next Question button
+        $btnNext.on("click", () => {
+          currentQuestionIndex++;
+          const quiz = quizzes[currentQuizKey];
+          if (currentQuestionIndex >= quiz.questions.length) {
+            // Quiz complete
+            $feedback.text(
+              `Quiz complete! Your final score: ${correctAnswersCount} / ${quiz.questions.length}`
+            );
+            $scoreDisplay.hide();
+            $btnNext.hide();
+            $btnRestart.show();
+            $btnStopQuiz.show();
+
+            // Save score to localStorage
+            const scores = loadScores();
+            scores[currentQuizKey] = correctAnswersCount;
+            saveScores(scores);
+          } else {
+            loadQuestion();
+          }
+        });
+
+        // Restart Quiz button
+        $btnRestart.on("click", () => {
+          startQuiz(currentQuizKey);
+        });
+
+        // Quiz Portal (stop quiz) button
+        $btnStopQuiz.on("click", () => {
+          updateScoreList();
+          showScreen($quizListScreen);
+        });
+
+        // Initialize app by showing start screen
+        showScreen($startScreen);
+      });
+    </script>
+  </body>
+</html>
