@@ -5,219 +5,254 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sons of Anarchy Quiz</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
-      body {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        font-family: "Montserrat", sans-serif;
-        background: linear-gradient(135deg, #1b1b1b, #8b0000);
-        color: #fff;
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
-      .container {
-        max-width: 600px;
-        width: 100%;
-      }
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #1b1b1b, #8b0000);
+  color: #fff;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
-      .screen {
-        background: rgba(0, 0, 0, 0.85);
-        border-radius: 15px;
-        padding: 30px 30px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-        text-align: center;
-        width: 600px;
-      }
+.container {
+  width: 100%;
+  max-width: 600px;
+}
 
-      h1 {
-        font-weight: 700;
-        letter-spacing: 2px;
-        margin-bottom: 30px;
-      }
+.screen {
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-      button {
-        background: #c0392b;
-        border: none;
-        padding: 15px 40px;
-        border-radius: 10px;
-        font-size: 1.2rem;
-        color: #fff;
-        font-weight: 700;
-        cursor: pointer;
-        margin: 10px 15px;
-        transition: background 0.3s ease;
-      }
+h1 {
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
 
-      button:hover {
-        background: #a93226;
-      }
+button {
+  background: #c0392b;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 10px 8px;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+}
 
-      .quiz-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        max-width: 300px;
-        margin: 0 auto 20px auto;
-      }
+button:hover {
+  background: #a93226;
+}
 
-      .quiz-list button {
-        background: #922b21;
-      }
+.quiz-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin: 0 auto 20px auto;
+}
 
-      .quiz-list button:hover {
-        background: #c0392b;
-      }
+.quiz-list button {
+  background: #922b21;
+}
 
-      .quiz-list-wrapper {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-      }
+.quiz-list button:hover {
+  background: #c0392b;
+}
 
-      .quiz-list,
-      .score-list {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 20px 25px;
-        max-width: 500px;
-      }
+.quiz-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 
-      .score-list h2 {
-        margin-top: 0;
-        margin-bottom: 15px;
-        font-size: 1.3rem;
-        text-align: center;
-      }
+.quiz-list,
+.score-list {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-      .score-list ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
+.score-list h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+}
 
-      .score-list li {
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 1rem;
-      }
+.score-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-      #back-to-start {
-        margin-top: 0;
-      }
+.score-list li {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
 
-      .quiz-container {
-        background: rgba(0, 0, 0, 0.85);
-        border-radius: 15px;
-        padding: 30px 40px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-        display: none;
-        text-align: left;
-      }
+#back-to-start {
+  margin-top: 0;
+}
 
-      .quiz-container h1 {
-        text-align: center;
-        margin-bottom: 25px;
-      }
+.quiz-container {
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  display: none;
+  text-align: left;
+  box-sizing: border-box;
+}
 
-      .question {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-      }
+.quiz-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
 
-      .options {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 20px 0;
-      }
+.question {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
 
-      .options li {
-        background: #2c3e50;
-        margin-bottom: 15px;
-        padding: 12px 18px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        border: 2px solid transparent;
-      }
+.options {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
 
-      .options li:hover {
-        background: #922b21;
-      }
+.options li {
+  background: #2c3e50;
+  margin-bottom: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 1rem;
+}
 
-      .options li.selected {
-        border-color: #f1c40f;
-        background: #c0392b;
-        color: #fff;
-        font-weight: 700;
-      }
+.options li:hover {
+  background: #922b21;
+}
 
-      .feedback {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-        min-height: 24px;
-        font-weight: 600;
-      }
+.options li.selected {
+  border-color: #f1c40f;
+  background: #c0392b;
+  color: #fff;
+  font-weight: 700;
+}
 
-      .btn-next,
-      .btn-restart,
-      .btn-stop-quiz {
-        padding: 12px 28px;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: none;
-        margin: 0 auto;
-        transition: background 0.3s ease;
-        border: none;
-      }
+.feedback {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  min-height: 24px;
+  font-weight: 600;
+}
 
-      .btn-next,
-      .btn-restart {
-        background: #c0392b;
-        color: #fff;
-      }
+.btn-next,
+.btn-restart,
+.btn-stop-quiz {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  margin: 0 auto;
+  transition: background 0.3s ease;
+  border: none;
+  width: 100%;
+  max-width: 250px;
+}
 
-      .btn-next:hover,
-      .btn-restart:hover {
-        background: #a93226;
-      }
+.btn-next,
+.btn-restart {
+  background: #c0392b;
+  color: #fff;
+}
 
-      .btn-stop-quiz {
-        background: #7b241c;
-        color: #fff;
-        margin-left: 10px;
-        display: inline-block;
-      }
+.btn-next:hover,
+.btn-restart:hover {
+  background: #a93226;
+}
 
-      .btn-stop-quiz:hover {
-        background: #641e16;
-      }
+.btn-stop-quiz {
+  background: #7b241c;
+  color: #fff;
+  margin-left: 0;
+  margin-top: 10px;
+  display: inline-block;
+}
 
-      .btn-restart,
-      .btn-stop-quiz {
-        display: inline-block;
-      }
+.btn-stop-quiz:hover {
+  background: #641e16;
+}
 
-      .btn-container {
-        text-align: center;
-      }
+.btn-restart,
+.btn-stop-quiz {
+  display: inline-block;
+}
 
-      .score {
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-top: 15px;
-      }
+.btn-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.score {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+/* Responsive tweaks */
+@media (min-width: 600px) {
+  button {
+    width: auto;
+  }
+
+  .btn-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .quiz-list-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+  }
+}
     </style>
   </head>
   <body>
