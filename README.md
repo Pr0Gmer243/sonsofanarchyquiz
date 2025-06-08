@@ -6,6 +6,7 @@ This is a quiz based on all the _Sons of Anarchy_ seasons 1-7.
 
 * This series is owned by [FX or The Walt Disney Company](https://thewaltdisneycompany.com/). Click to see their [Privacy Policy](https://privacy.thewaltdisneycompany.com/en/).
 * The code for this quiz includes HTML, CSS, Javascript, and jQuery.
+* It is mobile friendly.
 
 ## Contribution
 
