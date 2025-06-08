@@ -191,48 +191,23 @@ button:hover {
   font-weight: 600;
 }
 
-.btn-next,
-.btn-restart,
-.btn-stop-quiz {
+.btn-next {
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  display: none;
-  margin: 0 auto;
   transition: background 0.3s ease;
   border: none;
+  background: #c0392b;
+  color: #fff;
+  display: none;
   width: 100%;
   max-width: 250px;
 }
 
-.btn-next,
-.btn-restart {
-  background: #c0392b;
-  color: #fff;
-}
-
-.btn-next:hover,
-.btn-restart:hover {
+.btn-next:hover {
   background: #a93226;
-}
-
-.btn-stop-quiz {
-  background: #7b241c;
-  color: #fff;
-  margin-left: 0;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-.btn-stop-quiz:hover {
-  background: #641e16;
-}
-
-.btn-restart,
-.btn-stop-quiz {
-  display: inline-block;
 }
 
 .btn-container {
@@ -240,6 +215,48 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+  .btn-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+.btn-restart,
+.btn-stop-quiz {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: none;
+  flex: 1;
+  max-width: 200px;
+  width: 100%;
+  display: inline-block;
+}
+
+.btn-restart {
+  background: #c0392b;
+  color: #fff;
+}
+
+.btn-restart:hover {
+  background: #a93226;
+}
+
+.btn-stop-quiz {
+  background: #7b241c;
+  color: #fff;
+}
+
+.btn-stop-quiz:hover {
+  background: #641e16;
 }
 
 .score {
@@ -248,19 +265,6 @@ button:hover {
   font-weight: 700;
   margin-top: 15px;
 }
-
-@media (min-width: 600px) {
-  button {
-    width: auto;
-  }
-
-  .btn-container {
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-  }
-}
-
     </style>
   </head>
   <body>
